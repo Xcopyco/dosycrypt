@@ -243,6 +243,10 @@
     const IV_ENTROPY_BYTES = 5;
     const IV_BYTES = 16;
 
+    Object.assign( dosycrypt, { 
+      generate_iv, test_iv
+    } );
+
     function generate_iv( entropy_sz = IV_ENTROPY_BYTES, iv_sz = IV_BYTES ) {
       const bytes = dosycrypt.collect_entropy_bytes( entropy_sz );
       const digest = dosycrypt.hash( bytes, iv_sz );
@@ -252,33 +256,29 @@
     function test_iv() {
       console.log( "IV", generate_iv() );
     }
-
-    Object.assign( dosycrypt, { 
-      generate_iv, test_iv
-    } );
   }
 
   // full encryption and integrity algorithm
 
-  /**
-    Format
+    /**
+      Format
 
-    Encryption: 
+      Encryption: 
 
-      E(K,IV):E(K+IV,data:H(IV:data))
+        E(K,IV):E(K+IV,data:H(IV:data))
 
-     Decryption:
-       Schedule K.
-       Decrypt DOSY
-       Decrypt IV up until ":" character.
-       Schedule IV.
-       Decrypt until end.
-       Split data from hash.
-       Append data to IV with ":" character.
-       Compute hash and check if matches. 
-       If matches return data. If does not match
-       return integity error, ( key incorrect or data is corrupted ).
-  **/
+       Decryption:
+         Schedule K.
+         Decrypt DOSY
+         Decrypt IV up until ":" character.
+         Schedule IV.
+         Decrypt until end.
+         Split data from hash.
+         Append data to IV with ":" character.
+         Compute hash and check if matches. 
+         If matches return data. If does not match
+         return integity error, ( key incorrect or data is corrupted ).
+    **/
 
   {
     const IV_ENTROPY = 15;
@@ -333,7 +333,6 @@
         }
       });
       const plain_str = stringify( plain );
-      console.log( "IV", iv_str, "plain", plain_str );
       const hash_sep = plain_str.lastIndexOf( ":" );
       if ( hash_sep == -1 ) {
         throw new TypeError( "Cannot decrypt." );
@@ -341,10 +340,11 @@
       const hash = plain_str.slice( hash_sep + 1 );
       const data = plain_str.slice( 0, hash_sep );
       const hashable = iv_str + ":" + data;
-      console.log( "Hashable", hashable );
       const computed_hash = dosycrypt.hash( hashable, HASH_SZ );
-      console.log( "computed_hash", computed_hash );
       if ( hash == computed_hash ) {
+        console.log( "IV", iv_str, "plain", plain_str );
+        console.log( "Hashable", hashable );
+        console.log( "computed_hash", computed_hash );
         console.log( "Computed hash equals. Data is valid." );
         const data = plain_str.slice(0, hash_sep );
         return data;
@@ -364,14 +364,21 @@
     }
   }
 
-  // test
-  // run `node sec.js`
+  // tests
 
-  dosycrypt.test_hash();
-  dosycrypt.test_cipher();
-  dosycrypt.test_iv();
-  dosycrypt.test_entropy();
-  dosycrypt.test_full_cipher();
+  {
+    Object.assign( dosycrypt, {
+      test_all 
+    });
+
+    function test_all() {
+      dosycrypt.test_hash();
+      dosycrypt.test_cipher();
+      dosycrypt.test_iv();
+      dosycrypt.test_entropy();
+      dosycrypt.test_full_cipher();
+    }
+  }
 
   try { 
     module.exports = dosycrypt;
