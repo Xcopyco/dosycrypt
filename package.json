@@ -1,0 +1,27 @@
+{
+  "name": "dosycrypt",
+  "version": "1.0.0",
+  "description": "Message-verified encryption using DOSY RNGs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dosaygo-coder-0/dosycrypt.git"
+  },
+  "keywords": [
+    "encryption",
+    "dosy",
+    "dosycrypt"
+  ],
+  "author": "Kris <dontmailme@gmail.com> (https://2yago.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dosaygo-coder-0/dosycrypt/issues"
+  },
+  "homepage": "https://github.com/dosaygo-coder-0/dosycrypt#readme",
+  "dependencies": {
+    "dosy": "^1.0.2"
+  }
+}
