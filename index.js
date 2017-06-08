@@ -8,6 +8,11 @@
 
   // cross cutting concerns
 
+    Object.assign( dosycrypt, {
+      instance, pad, encode, include, stringify
+    });
+
+
     function instance( algo ) {
       const inst = {
         round: () => source.round()
@@ -240,7 +245,7 @@
   // initialization vector algorithms
 
   {
-    const IV_ENTROPY_BYTES = 5;
+    const IV_ENTROPY_BYTES = 8;
     const IV_BYTES = 16;
 
     Object.assign( dosycrypt, { 
