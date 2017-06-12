@@ -2,11 +2,8 @@
 
 Message verified encryption using dosy RNGs
 
-# Installing
-
-`npm install dosycrypt`
-
-# Using
+[![https://nodei.co/npm/YOUR-MODULE-NAME.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/dosycrypt.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/dosycrypt)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dosaygo-coder-0/dosycrypt/issues)
 
 ```js
   const dc = require('dosycrypt');
@@ -31,6 +28,28 @@ Message verified encryption using dosy RNGs
 - Uses the simple and effective DOSY RNGs that pass PractRand
 - Symmetric stream cipher with 120-bits of entropy ( hashed to 120 bits ) IV and 256-bits hash in the message format for protection against attacks which seek to obtain information about the internal state ( and therefore the key ) by using messages with similar sequences encrypted with the same key. The IV essentially makes the keystream for each message unique. 
 - The main strength of this cipher is believed to be that the mixing function of the RNG is good, and recovery of the internal state from the keystream is impractical. The internal state can be set at any size. 
+
+# Installing
+
+`npm install dosycrypt`
+
+# Using
+
+```js
+  const dc = require('dosycrypt');
+
+  const message = 'THIS IS A CAT'
+  const key = 'I AM THE KAT'
+  const ciphertext = dc.full_encrypt( message, key );
+  const plaintext = dc.full_decrypt( ciphertext, key );
+
+  // Works
+  console.log( "Message", message, "key", key, "ciphertext", dc.encode( ciphertext ), "plaintext", plaintext );
+
+  // Errors due to wrong key or data corruption, message verification works
+  const error_1 = dc.full_decrypt( ciphertext, key + 'a' );
+  const error_2 = dc.full_decrypt( ciphertext + 'a', key );
+```
 
 # Possible modification to enhanced security
 
