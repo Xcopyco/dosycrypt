@@ -1,7 +1,7 @@
 {
   "name": "dosycrypt",
   "version": "1.0.0",
-  "description": "Message-verified encryption using DOSY RNGs",
+  "description": "Message-verified encryption using dosyrng RNGs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,7 @@
   "keywords": [
     "encryption",
     "dosy",
+    "dosyrng",
     "dosycrypt"
   ],
   "author": "Kris <dontmailme@gmail.com> (https://2yago.com)",
@@ -22,6 +23,6 @@
   },
   "homepage": "https://github.com/dosaygo-coder-0/dosycrypt#readme",
   "dependencies": {
-    "dosy": "^1.0.2"
+    "dosyrng": "^1.0.3"
   }
 }

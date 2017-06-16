@@ -1,9 +1,9 @@
 "use strict";
 {
-  const dosy = require('dosy');
+  const dosyrng = require('dosyrng');
   const dosycrypt = {
-    rng1: surface => dosy.d451( surface ),
-    rng2: surface => dosy.d453( surface )
+    rng1: surface => dosyrng.d451( surface ),
+    rng2: surface => dosyrng.d453( surface )
   };
 
   // cross cutting concerns
@@ -384,6 +384,8 @@
       dosycrypt.test_full_cipher();
     }
   }
+
+  // dosycrypt.test_all();
 
   try { 
     module.exports = dosycrypt;
