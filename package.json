@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/dosaygo-coder-0/dosycrypt#readme",
   "dependencies": {
-    "dosyrng": "^1.0.3"
+    "dosyrng": "^1.0.3",
+    "utf8str": "^1.0.2"
   }
 }
