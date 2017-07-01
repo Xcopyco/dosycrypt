@@ -1,6 +1,6 @@
 {
   "name": "dosycrypt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Message-verified encryption using dosyrng RNGs",
   "main": "index.js",
   "scripts": {
@@ -25,5 +25,6 @@
   "dependencies": {
     "dosyrng": "^1.0.3",
     "utf8str": "^1.0.2"
-  }
+  },
+  "devDependencies": {}
 }
