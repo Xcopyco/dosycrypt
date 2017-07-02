@@ -2,6 +2,7 @@
 {
   const UTF8Str = require('utf8str');
   const dosyrng = require('dosyrng');
+  const bytes = require('dosybytes');
   const dosycrypt = {
     rng1: surface => dosyrng.d451( surface ),
     rng2: surface => dosyrng.d453( surface )
@@ -10,7 +11,7 @@
   // cross cutting concerns
 
     Object.assign( dosycrypt, {
-      instance, pad, encode, include, stringify, binary
+      instance, include
     });
 
 
@@ -23,33 +24,14 @@
       return inst;
     }
 
-    function pad( width, s ) {
-      const required = Math.max( 0, width - s.length );
-      const pad = new Array( required + 1 ).join('0');
-      return pad + s;
-    }
-
-    function encode( vals ) {
-      if ( ! Array.isArray( vals ) ) vals = binaryvals(vals);
-      return Array.from(vals).map( val => pad( 2, val.toString(16)) ).join('');
-    }
-
     function include( vals, instance ) {
       vals.forEach( (val, index) => {
         instance.state[index] ^= val;
       });
     }
 
-    function binaryvals( vals ) {
-      return Array.from(vals).map( v => v.charCodeAt(0) );
-    }
-    function binary( vals ) {
-      vals = Array.from(vals).reduce( (s,v) => s + String.fromCharCode(v), "" );
-      return vals;
-    }
     function stringify( vals ) {
-      vals = binary( vals );
-      return UTF8Str.fromUTF8Binary( vals );
+      return UTF8Str.fromBytes( vals );
     }
 
   // hash construction algorithms
@@ -66,7 +48,7 @@
       const hasher = instance( algo );
       absorb( message, hasher ); 
       const digest = squeeze( message, digest_sz, hasher );
-      return encode( digest );
+      return bytes.toHex( digest );
     }
 
     function absorb( message, hasher ) {
@@ -141,7 +123,7 @@
     }
 
     function decrypt( key, cipher, algo = dosycrypt.rng1, existing_instance ) {
-      cipher = binaryvals( cipher );
+      cipher = bytes.fromBinary( cipher );
       const plain = [];
 
       const inst = existing_instance || instance( algo );
@@ -161,10 +143,10 @@
       const message = "THIS IS A SECRET!"
       const key = "thisisakey";
       const cipher = encrypt( key, message );
-      const cipher_string = binary( cipher );
+      const cipher_string = bytes.toBinary( cipher );
       const plain = decrypt( key, cipher_string );
       console.log( "Message", message, "key", key );
-      console.log( "cipher", encode( cipher ) );
+      console.log( "cipher", bytes.toHex( cipher ) );
       console.log( "plain", stringify( plain ) );
     }
   }
@@ -244,11 +226,11 @@
       while( run--) {
         console.log( "Float run time", time_float_run() );
       }
-      console.log( "32 bytes of entropy", encode( collect_entropy_bytes() ));
-      console.log( "32 bytes of entropy", encode( collect_entropy_bytes() ));
-      console.log( "32 bytes of entropy", encode( collect_entropy_bytes() ));
-      console.log( "32 bytes of entropy", encode( collect_entropy_bytes() ));
-      console.log( "32 bytes of entropy", encode( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.toHex( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.toHex( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.toHex( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.toHex( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.toHex( collect_entropy_bytes() ));
     }
   }
 
@@ -309,7 +291,7 @@
       const iv = dosycrypt.generate_iv( IV_ENTROPY, IV_SZ );
       console.log("IV", iv);
       // schedule key and encrypt iv
-      const e_iv = binary( dosycrypt.encrypt( key, iv + ":", null, inst ) );
+      const e_iv = bytes.toBinary( dosycrypt.encrypt( key, iv + ":", null, inst ) );
       // schedule iv
       dosycrypt.schedule( iv, inst );
       // form iv:data to hash it
@@ -320,7 +302,7 @@
       // form data:hash
       const plain = data + ":" + hash;
       // encrypt it
-      const e_plain = binary( dosycrypt.encrypt( null, plain, null, inst ) );
+      const e_plain = bytes.toBinary( dosycrypt.encrypt( null, plain, null, inst ) );
       // combine
       const cipher = e_iv + e_plain;
       return cipher;
@@ -333,11 +315,11 @@
       const plain = [];
       let iv_str;
       let iv_mode = true;
-      binaryvals( cipher ).forEach( val => {
+      bytes.fromBinary( cipher ).forEach( val => {
         const p = val ^ inst.round();
         if ( iv_mode ) {
           if ( p == ":".charCodeAt(0) ) {
-            iv_str = binary( iv );
+            iv_str = bytes.toBinary( iv );
             dosycrypt.schedule( iv_str, inst );
             iv_mode = false;
             return; // discard ":"
@@ -379,7 +361,7 @@
       const key = "thisisasecretkey";
       console.log( "Plain", plain, "key", key );
       const cipher = full_encrypt( plain, key );
-      console.log( "Cipher", encode( cipher ) );
+      console.log( "Cipher", bytes.toHex( cipher ) );
       const decrypted = full_decrypt( cipher, key );
       console.log( "Decrypted", decrypted );
     }
@@ -389,7 +371,7 @@
       const key = "thisisasecretkey";
       console.log( "Plain", plain, "key", key );
       const cipher = full_encrypt( plain, key );
-      console.log( "Cipher", encode( cipher ) );
+      console.log( "Cipher", bytes.toHex( cipher ) );
       const decrypted = full_decrypt( cipher, key );
       console.log( "Decrypted", decrypted );
     }
