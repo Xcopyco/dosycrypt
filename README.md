@@ -20,6 +20,9 @@ Message verified encryption using dosy RNGs
   const error_1 = dc.full_decrypt( ciphertext, key + 'a' );
   const error_2 = dc.full_decrypt( ciphertext + 'a', key );
 ```
+## Latest News
+
+- V 1.0.2 - Now works with Unicode!
 
 # Design
 
