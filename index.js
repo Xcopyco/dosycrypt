@@ -226,11 +226,11 @@
       while( run--) {
         console.log( "Float run time", time_float_run() );
       }
-      console.log( "32 bytes of entropy", bytes.toHex( bytes.fromBinary( collect_entropy_bytes() )));
-      console.log( "32 bytes of entropy", bytes.toHex( bytes.fromBinary( collect_entropy_bytes() )));
-      console.log( "32 bytes of entropy", bytes.toHex( bytes.fromBinary( collect_entropy_bytes() )));
-      console.log( "32 bytes of entropy", bytes.toHex( bytes.fromBinary( collect_entropy_bytes() )));
-      console.log( "32 bytes of entropy", bytes.toHex( bytes.fromBinary( collect_entropy_bytes() )));
+      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
     }
   }
 
@@ -361,7 +361,7 @@
       const key = "thisisasecretkey";
       console.log( "Plain", plain, "key", key );
       const cipher = full_encrypt( plain, key );
-      console.log( "Cipher", bytes.toHex( bytes.fromBinary( cipher ) ) );
+      console.log( "Cipher", bytes.bin2hex( cipher ) );
       const decrypted = full_decrypt( cipher, key );
       console.log( "Decrypted", decrypted );
     }
@@ -371,7 +371,7 @@
       const key = "thisisasecretkey";
       console.log( "Plain", plain, "key", key );
       const cipher = full_encrypt( plain, key );
-      console.log( "Cipher", bytes.toHex( bytes.fromBinary( cipher ) ) );
+      console.log( "Cipher", bytes.bin2hex( cipher ) );
       const decrypted = full_decrypt( cipher, key );
       console.log( "Decrypted", decrypted );
     }
