@@ -83,7 +83,7 @@
     function test_hash() {
       const message = "THIS IS A TEST!"
       const digest = hash( message, 32 );
-      console.log( "Message", message, "hash", digest );
+      //console.log( "Message", message, "hash", digest );
     }
   }
 
@@ -145,9 +145,9 @@
       const cipher = encrypt( key, message );
       const cipher_string = bytes.toBinary( cipher );
       const plain = decrypt( key, cipher_string );
-      console.log( "Message", message, "key", key );
-      console.log( "cipher", bytes.toHex( cipher ) );
-      console.log( "plain", stringify( plain ) );
+      //console.log( "Message", message, "key", key );
+      //console.log( "cipher", bytes.toHex( cipher ) );
+      //console.log( "plain", stringify( plain ) );
     }
   }
 
@@ -224,13 +224,13 @@
     function test_entropy() {
       let run = 100;
       while( run--) {
-        console.log( "Float run time", time_float_run() );
+        //console.log( "Float run time", time_float_run() );
       }
-      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
-      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
-      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
-      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
-      console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      //console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      //console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      //console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      //console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
+      //console.log( "32 bytes of entropy", bytes.bin2hex( collect_entropy_bytes() ));
     }
   }
 
@@ -251,7 +251,7 @@
     }
 
     function test_iv() {
-      console.log( "IV", generate_iv() );
+      //console.log( "IV", generate_iv() );
     }
   }
 
@@ -359,21 +359,21 @@
     function test_full_cipher() {
       const plain = "THIS IS SOME REAL DATA WOO";
       const key = "thisisasecretkey";
-      console.log( "Plain", plain, "key", key );
+      //console.log( "Plain", plain, "key", key );
       const cipher = full_encrypt( plain, key );
-      console.log( "Cipher", bytes.bin2hex( cipher ) );
+      //console.log( "Cipher", bytes.bin2hex( cipher ) );
       const decrypted = full_decrypt( cipher, key );
-      console.log( "Decrypted", decrypted );
+      //console.log( "Decrypted", decrypted );
     }
 
     function test_full_cipher2() {
       const plain = "Foo © bar 𝌆 baz ☃ qux";
       const key = "thisisasecretkey";
-      console.log( "Plain", plain, "key", key );
+      //console.log( "Plain", plain, "key", key );
       const cipher = full_encrypt( plain, key );
-      console.log( "Cipher", bytes.bin2hex( cipher ) );
+      //console.log( "Cipher", bytes.bin2hex( cipher ) );
       const decrypted = full_decrypt( cipher, key );
-      console.log( "Decrypted", decrypted );
+      //console.log( "Decrypted", decrypted );
     }
   }
 
