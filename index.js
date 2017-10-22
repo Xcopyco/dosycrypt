@@ -289,14 +289,14 @@
     function full_encrypt( data, key ) {
       const inst = instance( dosycrypt.rng1 );
       const iv = dosycrypt.generate_iv( IV_ENTROPY, IV_SZ );
-      console.log("IV", iv);
+      //console.log("IV", iv);
       // schedule key and encrypt iv
       const e_iv = bytes.toBinary( dosycrypt.encrypt( key, iv + ":", null, inst ) );
       // schedule iv
       dosycrypt.schedule( iv, inst );
       // form iv:data to hash it
       const hashable = iv + ":" + data;
-      console.log( "Hashable", hashable );
+      //console.log( "Hashable", hashable );
       // compute its hash 
       const hash = dosycrypt.hash( hashable, HASH_SZ );
       // form data:hash
@@ -330,7 +330,7 @@
         }
       });
       let plain_str;
-      console.log( plain );
+      //console.log( plain );
       try {
         plain_str = stringify( plain );
       } catch(e) {
@@ -345,10 +345,10 @@
       const hashable = iv_str + ":" + data;
       const computed_hash = dosycrypt.hash( hashable, HASH_SZ );
       if ( hash == computed_hash ) {
-        console.log( "IV", iv_str, "plain", plain_str );
-        console.log( "Hashable", hashable );
-        console.log( "computed_hash", computed_hash );
-        console.log( "Computed hash equals. Data is valid." );
+        //console.log( "IV", iv_str, "plain", plain_str );
+        //console.log( "Hashable", hashable );
+        //console.log( "computed_hash", computed_hash );
+        //console.log( "Computed hash equals. Data is valid." );
         const data = plain_str.slice(0, hash_sep );
         return data;
       } else {
