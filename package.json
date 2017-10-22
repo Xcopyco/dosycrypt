@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dosaygo-coder-0/dosycrypt.git"
+    "url": "git+https://github.com/dosyago-coder-0/dosycrypt.git"
   },
   "keywords": [
     "encryption",
@@ -19,9 +19,9 @@
   "author": "Kris <dontmailme@gmail.com> (https://2yago.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dosaygo-coder-0/dosycrypt/issues"
+    "url": "https://github.com/dosyago-coder-0/dosycrypt/issues"
   },
-  "homepage": "https://github.com/dosaygo-coder-0/dosycrypt#readme",
+  "homepage": "https://github.com/dosyago-coder-0/dosycrypt#readme",
   "dependencies": {
     "dosybytes": "^1.0.0",
     "dosyrng": "^1.0.3",
