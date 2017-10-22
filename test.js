@@ -5,6 +5,7 @@
   dc.test_all();
   test();
   test2();
+  test3();
 
   function test() {
     const text = `
